@@ -1,0 +1,40 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>com.github.sfpprxy.tacointellijplugin</id>
+    <name>Taco - The Assistant of Coding</name>
+    <vendor>sfpprxy</vendor>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <resource-bundle>messages.TacoBundle</resource-bundle>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow factoryClass="com.github.sfpprxy.tacointellijplugin.ui.TacoWindowFactory" id="Taco"/>
+    </extensions>
+
+    <applicationListeners>
+        <listener class="com.github.sfpprxy.tacointellijplugin.listeners.TacoActivationListener"
+                  topic="com.intellij.openapi.application.ApplicationActivationListener"/>
+    </applicationListeners>
+
+    <actions>
+        <action id="ImproveSnippetAction"
+                class="com.github.sfpprxy.tacointellijplugin.action.ImproveSnippetAction"
+                text="Taco: Improve Selected Code"
+                description="Improve selected code snippet"
+                icon="AllIcons.Actions.Compile">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+
+        <action id="ImproveFileAction"
+                class="com.github.sfpprxy.tacointellijplugin.action.ImproveFileAction"
+                text="Taco: Improve Code"
+                description="Improve code of the file"
+                icon="AllIcons.Actions.Compile">
+            <keyboard-shortcut
+                    keymap="$default"
+                    first-keystroke="control alt A"/>
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+    </actions>
+</idea-plugin>

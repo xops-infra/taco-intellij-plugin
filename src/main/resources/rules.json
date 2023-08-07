@@ -1,0 +1,6 @@
+{
+  "rules": [
+    "AMBIGUOUS_NAME",
+    "EARLY_RETURNING"
+  ]
+}
