@@ -1,6 +1,6 @@
-package com.github.sfpprxy.tacointellijplugin.action
+package com.github.sfpprxy.tacointellijplugin.improvement
 
-import com.github.sfpprxy.tacointellijplugin.model.*
+import com.github.sfpprxy.tacointellijplugin.action.ActionUtil
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.PopupAction

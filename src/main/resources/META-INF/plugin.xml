@@ -1,6 +1,6 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.sfpprxy.tacointellijplugin</id>
+    <id>Taco</id>
     <name>Taco - The Assistant of Coding</name>
     <vendor>sfpprxy</vendor>
 
@@ -8,18 +8,31 @@
 
     <resource-bundle>messages.TacoBundle</resource-bundle>
 
+    <!-- Text to display as description on Settings | Plugin page -->
+    <description>
+        <![CDATA[
+      Demonstrates implementing a custom settings panel.<br>Adds a settings panel to the <b>Settings</b>
+      panel under <b>Tools</b>.
+    ]]>
+    </description>
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.sfpprxy.tacointellijplugin.ui.TacoWindowFactory" id="Taco"/>
+        <toolWindow factoryClass="com.github.sfpprxy.tacointellijplugin.WindowFactory" id="Taco"/>
+        <statusBarWidgetFactory implementation="com.github.sfpprxy.tacointellijplugin.StatusBarIconFactory"/>
+        <applicationConfigurable parentId="tools"
+                                 instance="com.github.sfpprxy.tacointellijplugin.settings.SettingsConfigurable"
+                                 id="com.github.sfpprxy.tacointellijplugin.settings.SettingsConfigurable"
+                                 displayName="Taco Settings"/>
+        <!--        <applicationService serviceImplementation="com.github.sfpprxy.tacointellijplugin.settings.AppSettingsState"/>-->
     </extensions>
 
     <applicationListeners>
-        <listener class="com.github.sfpprxy.tacointellijplugin.listeners.TacoActivationListener"
+        <listener class="com.github.sfpprxy.tacointellijplugin.listeners.ActivationListener"
                   topic="com.intellij.openapi.application.ApplicationActivationListener"/>
     </applicationListeners>
 
     <actions>
         <action id="ImproveSnippetAction"
-                class="com.github.sfpprxy.tacointellijplugin.action.ImproveSnippetAction"
+                class="com.github.sfpprxy.tacointellijplugin.improvement.ImproveSnippetAction"
                 text="Taco: Improve Selected Code"
                 description="Improve selected code snippet"
                 icon="AllIcons.Actions.Compile">
@@ -27,7 +40,7 @@
         </action>
 
         <action id="ImproveFileAction"
-                class="com.github.sfpprxy.tacointellijplugin.action.ImproveFileAction"
+                class="com.github.sfpprxy.tacointellijplugin.improvement.ImproveFileAction"
                 text="Taco: Improve Code"
                 description="Improve code of the file"
                 icon="AllIcons.Actions.Compile">
@@ -36,5 +49,7 @@
                     first-keystroke="control alt A"/>
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
+
+        <action id="TacoActions" class="com.github.sfpprxy.tacointellijplugin.TacoActions"/>
     </actions>
 </idea-plugin>

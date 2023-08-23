@@ -1,8 +1,6 @@
-package com.github.sfpprxy.tacointellijplugin.services
+package com.github.sfpprxy.tacointellijplugin.improvement
 
-import com.github.sfpprxy.tacointellijplugin.TacoBundle.message
-import com.github.sfpprxy.tacointellijplugin.model.Improvement
-import com.github.sfpprxy.tacointellijplugin.model.ImprovementContext
+import com.github.sfpprxy.tacointellijplugin.settings.SettingsState
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -12,14 +10,14 @@ import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.util.io.HttpRequests
 
 @Service
-class TacoService {
+class ImproveService {
 
     fun improve(ctx: ImprovementContext): Improvement {
         val improvementContext = gson.toJson(ctx)
         thisLogger().debug("improvementContext: $improvementContext")
-        println("improvementContext: $improvementContext")
 
-        val improvementRes = HttpRequests.post(apiUrl, HttpRequests.JSON_CONTENT_TYPE)
+        val url = SettingsState.getInstance().endpointUrl + API_PATH
+        val improvementRes = HttpRequests.post(url, HttpRequests.JSON_CONTENT_TYPE)
             .throwStatusCodeException(false)
             .connect {
                 it.write(improvementContext)
@@ -32,12 +30,12 @@ class TacoService {
 
 
     companion object {
-        fun getInstance(): TacoService = service()
+        private const val API_PATH = "/code/improvement"
 
-        val gson: Gson = GsonBuilder()
+        fun getInstance(): ImproveService = service()
+
+        private val gson: Gson = GsonBuilder()
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .create()
-
-        val apiUrl: String = message("settings.backend.api.url")
     }
 }

@@ -1,11 +1,11 @@
-package com.github.sfpprxy.tacointellijplugin.ui
+package com.github.sfpprxy.tacointellijplugin
 
 import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
 
-class TacoWindowFactory : ToolWindowFactory {
+class WindowFactory : ToolWindowFactory {
 
     init {
         thisLogger().info(

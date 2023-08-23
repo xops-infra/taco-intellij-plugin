@@ -1,4 +1,4 @@
-package com.github.sfpprxy.tacointellijplugin.model
+package com.github.sfpprxy.tacointellijplugin.improvement
 
 import com.intellij.openapi.diagnostic.thisLogger
 

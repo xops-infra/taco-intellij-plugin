@@ -1,8 +1,5 @@
-package com.github.sfpprxy.tacointellijplugin.action
+package com.github.sfpprxy.tacointellijplugin.improvement
 
-import com.github.sfpprxy.tacointellijplugin.model.Improvement
-import com.github.sfpprxy.tacointellijplugin.model.ImprovementContext
-import com.github.sfpprxy.tacointellijplugin.services.TacoService
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.application.ApplicationManager
 import java.util.concurrent.BlockingQueue
@@ -17,7 +14,7 @@ interface ImproveAction {
         val blockingQueue: BlockingQueue<Improvement> = LinkedBlockingQueue(1)
 
         ApplicationManager.getApplication().executeOnPooledThread {
-            val improvement = TacoService.getInstance().improve(improvementContext)
+            val improvement = ImproveService.getInstance().improve(improvementContext)
             blockingQueue.put(improvement)
         }
 

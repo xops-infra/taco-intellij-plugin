@@ -1,4 +1,4 @@
-package com.github.sfpprxy.tacointellijplugin.model
+package com.github.sfpprxy.tacointellijplugin.improvement
 
 @Suppress("unused")
 enum class ImprovementScope {
@@ -17,11 +17,20 @@ data class ProjectObject(
 
 enum class Rule {
     AMBIGUOUS_NAME,
-    EARLY_RETURN;
+    EARLY_RETURN,
+    REDUCE_CODE_DUPLICATION,
+    USE_ENCAPSULATION,
+    SIMPLIFY_LOOP_SYNTAX;
 
     companion object {
         fun defaultSet(): List<Rule> {
-            return listOf(AMBIGUOUS_NAME, EARLY_RETURN)
+            return listOf(
+                AMBIGUOUS_NAME,
+                EARLY_RETURN,
+                REDUCE_CODE_DUPLICATION,
+                USE_ENCAPSULATION,
+                SIMPLIFY_LOOP_SYNTAX
+            )
         }
     }
 }
