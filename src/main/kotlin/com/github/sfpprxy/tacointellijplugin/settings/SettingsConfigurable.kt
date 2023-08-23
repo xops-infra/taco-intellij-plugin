@@ -1,5 +1,6 @@
 package com.github.sfpprxy.tacointellijplugin.settings
 
+import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.options.Configurable
 import org.jetbrains.annotations.Nls
 import javax.swing.JComponent
@@ -8,7 +9,7 @@ import javax.swing.JComponent
  * Provides controller functionality for application settings.
  */
 class SettingsConfigurable : Configurable {
-    private var mySettingsComponent: SettingsComponent? = null
+    private var settingsComponent: SettingsComponent? = null
 
     // A default constructor with no arguments is required because this implementation
     // is registered as an applicationConfigurable EP
@@ -17,26 +18,32 @@ class SettingsConfigurable : Configurable {
     }
 
     override fun createComponent(): JComponent {
-        mySettingsComponent = SettingsComponent()
-        return mySettingsComponent!!.panel
+        settingsComponent = SettingsComponent()
+        return settingsComponent!!.panel
     }
 
     override fun isModified(): Boolean {
         val settings = SettingsState.getInstance()
-        return mySettingsComponent!!.endpointUrl != settings.endpointUrl
+        return settingsComponent!!.endpointUrl != settings.endpointUrl
+                || settingsComponent!!.debugMode != settings.debugMode
     }
 
     override fun apply() {
         val settings = SettingsState.getInstance()
-        settings.endpointUrl = mySettingsComponent!!.endpointUrl
+        settings.endpointUrl = settingsComponent!!.endpointUrl
+        settings.debugMode = settingsComponent!!.debugMode
+        if (settings.debugMode) {
+            thisLogger().info("taco debug mode enabled")
+        }
     }
 
     override fun reset() {
         val settings = SettingsState.getInstance()
-        mySettingsComponent!!.endpointUrl = settings.endpointUrl
+        settingsComponent!!.endpointUrl = settings.endpointUrl
+        settingsComponent!!.debugMode = settings.debugMode
     }
 
     override fun disposeUIResources() {
-        mySettingsComponent = null
+        settingsComponent = null
     }
 }

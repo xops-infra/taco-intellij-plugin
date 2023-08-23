@@ -1,20 +1,22 @@
 package com.github.sfpprxy.tacointellijplugin.improvement
 
+import com.github.sfpprxy.tacointellijplugin.peek
 import com.github.sfpprxy.tacointellijplugin.settings.SettingsState
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
-import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.util.io.HttpRequests
+import java.io.IOException
 
 @Service
 class ImproveService {
 
+    @Throws(IOException::class)
     fun improve(ctx: ImprovementContext): Improvement {
         val improvementContext = gson.toJson(ctx)
-        thisLogger().debug("improvementContext: $improvementContext")
+        improvementContext.peek("improvementContext")
 
         val url = SettingsState.getInstance().endpointUrl + API_PATH
         val improvementRes = HttpRequests.post(url, HttpRequests.JSON_CONTENT_TYPE)
@@ -23,7 +25,7 @@ class ImproveService {
                 it.write(improvementContext)
                 it.readString()
             }
-        thisLogger().debug("improvementRes: $improvementRes")
+        improvementRes.peek("improvementRes")
 
         return gson.fromJson(improvementRes, Improvement::class.java)
     }

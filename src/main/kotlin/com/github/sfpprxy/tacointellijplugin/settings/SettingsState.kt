@@ -14,6 +14,7 @@ import com.intellij.util.xmlb.XmlSerializerUtil
 )
 @Service
 class SettingsState : PersistentStateComponent<SettingsState> {
+    var debugMode = false
     var endpointUrl = "http://replace-this-example-url"
 
     override fun getState(): SettingsState {

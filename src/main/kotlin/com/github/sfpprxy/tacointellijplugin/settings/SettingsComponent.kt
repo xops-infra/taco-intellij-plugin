@@ -4,6 +4,7 @@ import com.github.sfpprxy.tacointellijplugin.TacoBundle.message
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBTextField
 import com.intellij.util.ui.FormBuilder
+import javax.swing.JCheckBox
 import javax.swing.JPanel
 
 /**
@@ -11,10 +12,15 @@ import javax.swing.JPanel
  */
 class SettingsComponent {
     val panel: JPanel
+    private val debugModeCheckBox = JCheckBox(message("action.settings.debug.label"))
     private val endpointTextField = JBTextField()
 
     init {
         panel = FormBuilder.createFormBuilder()
+            .addComponent(
+                debugModeCheckBox,
+                1,
+            )
             .addLabeledComponent(
                 JBLabel(message("action.settings.endpoint.label")),
                 endpointTextField,
@@ -24,6 +30,14 @@ class SettingsComponent {
             .addComponentFillVertically(JPanel(), 0)
             .panel
     }
+
+    var debugMode: Boolean
+        get() {
+            return debugModeCheckBox.isSelected
+        }
+        set(newDebugMode) {
+            debugModeCheckBox.isSelected = newDebugMode
+        }
 
     var endpointUrl: String
         get() {
